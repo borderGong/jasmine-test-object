@@ -69,7 +69,7 @@ $(function() {
         })
     });    
     /* TODO: 13. 写一个叫做 "Initial Entries" 的测试用例 */
-
+    describe('Initial Entries', () => {
         /* TODO:
          * 写一个测试保证 loadFeed 函数被调用而且工作正常，即在 .feed 容器元素
          * 里面至少有一个 .entry 的元素。
@@ -77,11 +77,31 @@ $(function() {
          * 记住 loadFeed() 函数是异步的所以这个而是应该使用 Jasmine 的 beforeEach
          * 和异步的 done() 函数。
          */
-
+        beforeEach(done => {
+            loadFeed(0, () => {
+                done();
+            });
+        });
+        it('should at least have one Element in feed containter', done => {
+            expect($('.feed .entry').length).toBeGreaterThan(0);
+            done();
+        });
+    })
     /* TODO: 写一个叫做 "New Feed Selection" 的测试用例 */
-
+    describe('New Feed Selection', () => {    
         /* TODO:
          * 写一个测试保证当用 loadFeed 函数加载一个新源的时候内容会真的改变。
          * 记住，loadFeed() 函数是异步的。
          */
+        const beforeHtml = $('.feed').html();
+        beforeEach(done => {
+            loadFeed(1, () => {
+                done();
+            });
+        });
+        it('should at be changed when url has been changed!', done => {
+            expect($('.feed').html() !== beforeHtml).toBeTruthy();
+            done();
+        });
+    });
 }());
