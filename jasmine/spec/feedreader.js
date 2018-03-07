@@ -93,10 +93,13 @@ $(function() {
          * 写一个测试保证当用 loadFeed 函数加载一个新源的时候内容会真的改变。
          * 记住，loadFeed() 函数是异步的。
          */
-        const beforeHtml = $('.feed').html();
+        let beforeHtml;
         beforeEach(done => {
-            loadFeed(1, () => {
-                done();
+            loadFeed(0, () => {
+                beforeHtml = $('.feed').html();
+                loadFeed(2, () => {
+                    done();
+                })
             });
         });
         it('should at be changed when url has been changed!', done => {
