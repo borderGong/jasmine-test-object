@@ -29,6 +29,7 @@ $(function() {
             allFeeds.forEach(item => {
                 expect('url' in item).toBeTruthy();
                 expect(item.url).not.toBeNull();
+                expect(item.url.length).toBeGreaterThan(0);
             })
         });
 
@@ -40,6 +41,7 @@ $(function() {
             allFeeds.forEach(item => {
                 expect('name' in item).toBeTruthy();
                 expect(item.name).not.toBeNull();
+                expect(item.name.length).toBeGreaterThan(0);
             })
         });
     });
@@ -78,15 +80,13 @@ $(function() {
          * 和异步的 done() 函数。
          */
         beforeEach(done => {
-            loadFeed(0, () => {
-                done();
-            });
+            loadFeed(0, done);
         });
         it('should at least have one Element in feed containter', done => {
             expect($('.feed .entry').length).toBeGreaterThan(0);
             done();
         });
-    })
+    });
     /* TODO: 写一个叫做 "New Feed Selection" 的测试用例 */
     describe('New Feed Selection', () => {    
         /* TODO:
@@ -97,9 +97,7 @@ $(function() {
         beforeEach(done => {
             loadFeed(0, () => {
                 beforeHtml = $('.feed').html();
-                loadFeed(2, () => {
-                    done();
-                })
+                loadFeed(2, done)
             });
         });
         it('should at be changed when url has been changed!', done => {
